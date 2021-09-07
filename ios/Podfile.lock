@@ -1,0 +1,63 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_inappwebview (0.0.1):
+    - Flutter
+    - flutter_inappwebview/Core (= 0.0.1)
+    - OrderedSet (~> 5.0)
+  - flutter_inappwebview/Core (0.0.1):
+    - Flutter
+    - OrderedSet (~> 5.0)
+  - geolocator_apple (1.2.0):
+    - Flutter
+  - location (0.0.1):
+    - Flutter
+  - OrderedSet (5.0.0)
+  - "permission_handler (5.1.0+2)":
+    - Flutter
+  - url_launcher (0.0.1):
+    - Flutter
+  - webview_flutter (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
+  - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
+  - location (from `.symlinks/plugins/location/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
+
+SPEC REPOS:
+  trunk:
+    - OrderedSet
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_inappwebview:
+    :path: ".symlinks/plugins/flutter_inappwebview/ios"
+  geolocator_apple:
+    :path: ".symlinks/plugins/geolocator_apple/ios"
+  location:
+    :path: ".symlinks/plugins/location/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+  url_launcher:
+    :path: ".symlinks/plugins/url_launcher/ios"
+  webview_flutter:
+    :path: ".symlinks/plugins/webview_flutter/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
+  geolocator_apple: b741765c55dc21950e3e106e8b3584e55cf81ce5
+  location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
+  OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
+  permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
+  url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
+  webview_flutter: 3603125dfd3bcbc9d8d418c3f80aeecf331c068b
+
+PODFILE CHECKSUM: 28f6320254ed6a683a62b050a2ad33e45e5eddde
+
+COCOAPODS: 1.10.1
