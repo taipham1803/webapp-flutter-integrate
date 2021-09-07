@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 
-git clone this repo
+git clone https://github.com/taipham1803/webapp-flutter-integrate.git
 
 cd webapp-flutter-integrate && flutter pub get
 flutter run
