@@ -21,26 +21,26 @@ class _TaxiScreenState extends State<TaxiScreen> {
   @override
   @override
   Widget build(BuildContext context) {
-    String access_token = "asim_access_token"; // myLocal user's access_token
+    String access_token = "asim_access_token"; // myLocal user's jwt
     return InAppWebView(
-      // initialUrlRequest: URLRequest(url: Uri.parse("https://asim.emddi.xyz?token=$access_token"), method: 'GET'),
-      initialUrlRequest: URLRequest(url: Uri.parse("http://localhost:9106?token=$access_token"), method: 'GET'),
+      initialUrlRequest: URLRequest(url: Uri.parse("https://asim.emddi.xyz?token=$access_token"), method: 'GET'),
+      // initialUrlRequest: URLRequest(url: Uri.parse("http://localhost:9106?token=$access_token"), method: 'GET'),
       onWebViewCreated: (controller) {
         controller.addJavaScriptHandler(
             handlerName: 'callBackPopScreenHandler',
             callback: (args) {
               print('Check goBack');
               Navigator.of(context).maybePop();
-              // Navigator.of(context).pushNamed(Routes.home);
-              // Navigator.of(context).pushReplacementNamed(Routes.home);
-              // print(args);
-              // it will print: [1, true, [bar, 5], {foo: baz}, {bar: bar_value, baz: baz_value}]
             });
         controller.addJavaScriptHandler(
             handlerName: 'callBackAccessLocationPermission',
             callback: (args) {
               _checkLocationPermission();
             });
+      },
+      // handle permission request prompt android
+      androidOnGeolocationPermissionsShowPrompt: (InAppWebViewController controller, String origin) async {
+        return GeolocationPermissionShowPromptResponse(origin: origin, allow: true, retain: true);
       },
       onConsoleMessage: (controller, consoleMessage) {
         print('Check onConsoleMessage');
