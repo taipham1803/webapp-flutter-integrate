@@ -1,16 +1,20 @@
-# asim_test
+# Example for integrate EMDDI webapp to Flutter project
 
 A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+git clone https://github.com/taipham1803/webapp-flutter-integrate.git
 
-A few resources to get you started if this is your first Flutter project:
+cd webapp-flutter-integrate && flutter pub get
+flutter run
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## How to auth webapp for production
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Use client app jwt to auth, parse jwt to webapp via url like
+
+https://asim.emddi.xyz?token=$access_token
+
+with access_token is your user's token
+
+webapp will auto validate with auth server to get user's info like: name, phone, ...
