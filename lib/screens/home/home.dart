@@ -16,7 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         primary: true,
@@ -24,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('myLocal App'),
-          // backgroundColor: Colors.red,
+          backgroundColor: Colors.orange,
         ),
         body: Container(
           // set the width of this Container to 100% screen width
@@ -34,29 +33,37 @@ class _HomeScreenState extends State<HomeScreen> {
             // Vertically center the widget inside the column
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                height: 50,
-                width: 200,
-                decoration: BoxDecoration(color: Colors.purple),
-                child: FlatButton(
-                  color: Colors.orange,
-                  padding: EdgeInsets.all(0.0),
-                  child: Text(
-                    'Open Taxi feature',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: false,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  onPressed: () {
-                    _navigateToTaxiFeature();
-                    return;
-                  },
-                ),
-              ),
+              ButtonCenter('Development version', Colors.orange, () {
+                _navigateToTaxiFeature('dev', 'https://asim.emddi.xyz');
+                return;
+              }),
+              ButtonCenter('Production version', Colors.blueAccent, () {
+                _navigateToTaxiFeature('prod', 'https://apim.mylocal.vn/apipayment/mylocal/1.0');
+                return;
+              }),
             ],
           ),
         ));
+  }
+
+  Widget ButtonCenter(String name, Color color, Function onPress) {
+    return Container(
+      height: 50,
+      width: 200,
+      margin: new EdgeInsets.symmetric(vertical: 20.0),
+      child: FlatButton(
+        color: color,
+        padding: EdgeInsets.all(0.0),
+        child: Text(
+          name,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          softWrap: false,
+          style: TextStyle(color: Colors.white),
+        ),
+        onPressed: onPress,
+      ),
+    );
   }
 
   startTimer() {
@@ -89,9 +96,22 @@ class _HomeScreenState extends State<HomeScreen> {
     _locationData = await location.getLocation();
   }
 
-  _navigateToTaxiFeature() async {
+  _navigateToTaxiFeature(String envType, String url) async {
     _requestPermission();
-    Navigator.of(context).pushNamed(Routes.taxi);
+    Navigator.of(context).pushNamed(
+      Routes.taxi,
+      arguments: ScreenArguments(
+        envType,
+        url,
+      ),
+    );
     // Navigator.of(context).pushReplacementNamed(Routes.taxi);
   }
+}
+
+class ScreenArguments {
+  final String envType;
+  final String url;
+
+  ScreenArguments(this.envType, this.url);
 }

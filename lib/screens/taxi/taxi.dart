@@ -1,26 +1,19 @@
-// import 'dart:async';
-// import 'package:asim_test/utils/routes/routes.dart';
+import 'package:asim_test/screens/home/home.dart';
 import 'package:asim_test/utils/permission_util.dart';
 import 'package:asim_test/utils/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:location/location.dart';
 
-class TaxiScreen extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _TaxiScreenState();
-}
-
-class _TaxiScreenState extends State<TaxiScreen> {
-  @override
-  void initState() {
-    super.initState();
-    print("In _TaxiScreenState");
-  }
-
-  @override
+class TaxiScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String envType;
+    String webviewUri;
+    // Map<String, String> args = ModalRoute.of(context).settings.arguments;
+    final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
+    print("Check webviewUri " + args.url);
+
     String access_token = "asim_access_token"; // myLocal user's jwt
     return InAppWebView(
       initialUrlRequest: URLRequest(url: Uri.parse("https://asim.emddi.xyz?token=$access_token"), method: 'GET'),
