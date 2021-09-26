@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:asim_test/utils/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
@@ -12,7 +11,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    startTimer();
+  }
+
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
   }
 
   @override
@@ -23,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('myLocal App'),
-          backgroundColor: Colors.orange,
+          backgroundColor: Colors.redAccent,
         ),
         body: Container(
           // set the width of this Container to 100% screen width
@@ -33,42 +40,99 @@ class _HomeScreenState extends State<HomeScreen> {
             // Vertically center the widget inside the column
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ButtonCenter('Development version', Colors.orange, () {
+              ButtonNavigate('Development version', 'https://asim.emddi.xyz',
+                  Colors.orange, () {
                 _navigateToTaxiFeature('dev', 'https://asim.emddi.xyz');
                 return;
               }),
-              ButtonCenter('Production version', Colors.blueAccent, () {
-                _navigateToTaxiFeature('prod', 'https://apim.mylocal.vn/apipayment/mylocal/1.0');
+              ButtonNavigate('Development version',
+                  'https://mylocalxenginx01.mylocal.vn', Colors.orange, () {
+                _navigateToTaxiFeature(
+                    'dev', 'https://mylocalxenginx01.mylocal.vn');
                 return;
               }),
+              ButtonNavigate(
+                  'Production version',
+                  'https://apim.mylocal.vn/apipayment/mylocal/1.0',
+                  Colors.blueAccent, () {
+                _navigateToTaxiFeature(
+                    'prod', 'https://apim.mylocal.vn/apipayment/mylocal/1.0');
+                return;
+              }),
+              InputUrlButton(context),
             ],
           ),
         ));
   }
 
-  Widget ButtonCenter(String name, Color color, Function onPress) {
+  Widget ButtonNavigate(
+      String title, String subTitle, Color color, Function onPress) {
     return Container(
-      height: 50,
-      width: 200,
-      margin: new EdgeInsets.symmetric(vertical: 20.0),
+      margin: new EdgeInsets.symmetric(vertical: 8.0),
       child: FlatButton(
         color: color,
-        padding: EdgeInsets.all(0.0),
-        child: Text(
-          name,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          softWrap: false,
-          style: TextStyle(color: Colors.white),
+        padding: EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+              style: TextStyle(color: Colors.white),
+            ),
+            Text(
+              subTitle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+              style: TextStyle(color: Colors.white),
+            ),
+          ],
         ),
         onPressed: onPress,
       ),
     );
   }
 
-  startTimer() {
-    var _duration = Duration(milliseconds: 500);
-    return Timer(_duration, _requestPermission);
+  Widget InputUrlButton(BuildContext context) {
+
+    return Container(
+      margin: new EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: TextField(
+              controller: myController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter your custom webview url',
+              ),
+            ),
+          ),
+          FlatButton(
+            color: Colors.blue,
+            onPressed: () {
+              bool _validWebviewURL = Uri.parse(myController.text).isAbsolute;
+              if(!_validWebviewURL){
+                _showDialog("Invalid Url", "Your input text is not a valid web uri!");
+                return;
+              }
+              _navigateToTaxiFeature('manual', myController.text);
+            },
+            child: Text(
+              'OK',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+              style: TextStyle(color: Colors.white),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   _requestPermission() async {
@@ -107,11 +171,34 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     // Navigator.of(context).pushReplacementNamed(Routes.taxi);
   }
+
+  void _showDialog(String title, String body) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text(title),
+          content: new Text(body),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class ScreenArguments {
   final String envType;
   final String url;
-
   ScreenArguments(this.envType, this.url);
 }
+

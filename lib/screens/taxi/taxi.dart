@@ -9,14 +9,14 @@ class TaxiScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String envType;
-    String webviewUri;
-    // Map<String, String> args = ModalRoute.of(context).settings.arguments;
+    String webviewUri = 'https://asim.emddi.xyz';
     final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
-    print("Check webviewUri " + args.url);
+    webviewUri = args.url;
+    print('Check webviewUri = ' + webviewUri);
 
     String access_token = "asim_access_token"; // myLocal user's jwt
     return InAppWebView(
-      initialUrlRequest: URLRequest(url: Uri.parse("https://asim.emddi.xyz?token=$access_token"), method: 'GET'),
+      initialUrlRequest: URLRequest(url: Uri.parse("$webviewUri?token=$access_token"), method: 'GET'),
       // initialUrlRequest: URLRequest(url: Uri.parse("http://localhost:9106?token=$access_token"), method: 'GET'),
       onWebViewCreated: (controller) {
         controller.addJavaScriptHandler(
@@ -35,6 +35,16 @@ class TaxiScreen extends StatelessWidget {
       androidOnGeolocationPermissionsShowPrompt: (InAppWebViewController controller, String origin) async {
         return GeolocationPermissionShowPromptResponse(origin: origin, allow: true, retain: true);
       },
+        // _onUrlChanged = flutterWebviewPlugin.onUrlChanged.listen((String url) {
+        //   if (mounted) {
+        //     setState(() {
+        //       _history.add("onUrlChanged: $url");
+        //     });
+        //     if(url.contains("tel")){
+        //       //implement for condition
+        //     }
+        //   }
+        // });
       onConsoleMessage: (controller, consoleMessage) {
         print('Check onConsoleMessage');
         print(consoleMessage);
