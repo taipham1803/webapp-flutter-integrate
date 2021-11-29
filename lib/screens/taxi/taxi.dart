@@ -1,9 +1,9 @@
 import 'package:asim_test/screens/home/home.dart';
 import 'package:asim_test/utils/permission_util.dart';
-import 'package:asim_test/utils/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:location/location.dart';
+import 'package:flutter/services.dart';
 
 class TaxiScreen extends StatelessWidget {
   @override
@@ -15,9 +15,17 @@ class TaxiScreen extends StatelessWidget {
     print('Check webviewUri = ' + webviewUri);
 
     String access_token = "asim_access_token"; // myLocal user's jwt
+    String notify_id = "emddi_notify_id"; // notifyId retrieved from notify's data
+    String trip_id = "emddi_trip_id_in_notify"; // tripId retrieved from notify's data
+
+    // device orientation force portrait
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return InAppWebView(
-      initialUrlRequest: URLRequest(url: Uri.parse("$webviewUri?token=$access_token"), method: 'GET'),
-      // initialUrlRequest: URLRequest(url: Uri.parse("http://localhost:9106?token=$access_token"), method: 'GET'),
+      initialUrlRequest: URLRequest(url: Uri.parse("$webviewUri?token=$access_token&notifyId=$notify_id&tripId=$trip_id"), method: 'GET'),
       onWebViewCreated: (controller) {
         controller.addJavaScriptHandler(
             handlerName: 'callBackPopScreenHandler',
@@ -35,22 +43,24 @@ class TaxiScreen extends StatelessWidget {
       androidOnGeolocationPermissionsShowPrompt: (InAppWebViewController controller, String origin) async {
         return GeolocationPermissionShowPromptResponse(origin: origin, allow: true, retain: true);
       },
-        // _onUrlChanged = flutterWebviewPlugin.onUrlChanged.listen((String url) {
-        //   if (mounted) {
-        //     setState(() {
-        //       _history.add("onUrlChanged: $url");
-        //     });
-        //     if(url.contains("tel")){
-        //       //implement for condition
-        //     }
-        //   }
-        // });
-      onConsoleMessage: (controller, consoleMessage) {
-        print('Check onConsoleMessage');
-        print(consoleMessage);
-      },
     );
   }
+
+  // onConsoleMessage: (controller, consoleMessage) {
+  //   print('Check onConsoleMessage');
+  //   print(consoleMessage);
+  // },
+
+  // _onUrlChanged = flutterWebviewPlugin.onUrlChanged.listen((String url) {
+  //   if (mounted) {
+  //     setState(() {
+  //       _history.add("onUrlChanged: $url");
+  //     });
+  //     if(url.contains("tel")){
+  //       //implement for condition
+  //     }
+  //   }
+  // });
 
   Future<bool> _checkLocationPermission() async {
     return await PermissionUtil.checkLocationPermissionIsGranted();

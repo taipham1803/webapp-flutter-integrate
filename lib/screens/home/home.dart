@@ -40,23 +40,16 @@ class _HomeScreenState extends State<HomeScreen> {
             // Vertically center the widget inside the column
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ButtonNavigate('Development version', 'https://asim.emddi.xyz',
-                  Colors.orange, () {
+              ButtonNavigate('Development version', 'https://asim.emddi.xyz', Colors.orange, () {
                 _navigateToTaxiFeature('dev', 'https://asim.emddi.xyz');
                 return;
               }),
-              ButtonNavigate('Development version',
-                  'https://mylocalxenginx01.mylocal.vn', Colors.orange, () {
-                _navigateToTaxiFeature(
-                    'dev', 'https://mylocalxenginx01.mylocal.vn');
+              ButtonNavigate('Development version', 'https://mylocalxenginx01.mylocal.vn', Colors.orange, () {
+                _navigateToTaxiFeature('dev', 'https://mylocalxenginx01.mylocal.vn');
                 return;
               }),
-              ButtonNavigate(
-                  'Production version',
-                  'https://apim.mylocal.vn/apipayment/mylocal/1.0',
-                  Colors.blueAccent, () {
-                _navigateToTaxiFeature(
-                    'prod', 'https://apim.mylocal.vn/apipayment/mylocal/1.0');
+              ButtonNavigate('Production version', 'https://apim.mylocal.vn/apipayment/mylocal/1.0', Colors.blueAccent, () {
+                _navigateToTaxiFeature('prod', 'https://apim.mylocal.vn/apipayment/mylocal/1.0');
                 return;
               }),
               InputUrlButton(context),
@@ -65,8 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
   }
 
-  Widget ButtonNavigate(
-      String title, String subTitle, Color color, Function onPress) {
+  Widget ButtonNavigate(String title, String subTitle, Color color, Function onPress) {
     return Container(
       margin: new EdgeInsets.symmetric(vertical: 8.0),
       child: FlatButton(
@@ -96,7 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget InputUrlButton(BuildContext context) {
-
     return Container(
       margin: new EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -116,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.blue,
             onPressed: () {
               bool _validWebviewURL = Uri.parse(myController.text).isAbsolute;
-              if(!_validWebviewURL){
+              if (!_validWebviewURL) {
                 _showDialog("Invalid Url", "Your input text is not a valid web uri!");
                 return;
               }
@@ -201,4 +192,3 @@ class ScreenArguments {
   final String url;
   ScreenArguments(this.envType, this.url);
 }
-
