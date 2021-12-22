@@ -40,15 +40,15 @@ class _HomeScreenState extends State<HomeScreen> {
             // Vertically center the widget inside the column
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ButtonNavigate('Development version', 'https://asim.emddi.xyz', Colors.orange, () {
+              buttonNavigate('Development version', 'https://asim.emddi.xyz', Colors.orange, () {
                 _navigateToTaxiFeature('dev', 'https://asim.emddi.xyz');
                 return;
               }),
-              ButtonNavigate('Development version', 'https://mylocalxenginx01.mylocal.vn', Colors.orange, () {
+              buttonNavigate('Development version', 'https://mylocalxenginx01.mylocal.vn', Colors.orange, () {
                 _navigateToTaxiFeature('dev', 'https://mylocalxenginx01.mylocal.vn');
                 return;
               }),
-              ButtonNavigate('Production version', 'https://apim.mylocal.vn/apipayment/mylocal/1.0', Colors.blueAccent, () {
+              buttonNavigate('Production version', 'https://apim.mylocal.vn/apipayment/mylocal/1.0', Colors.blueAccent, () {
                 _navigateToTaxiFeature('prod', 'https://apim.mylocal.vn/apipayment/mylocal/1.0');
                 return;
               }),
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
   }
 
-  Widget ButtonNavigate(String title, String subTitle, Color color, Function onPress) {
+  Widget buttonNavigate(String title, String subTitle, Color color, Function onPress) {
     return Container(
       margin: new EdgeInsets.symmetric(vertical: 8.0),
       child: FlatButton(

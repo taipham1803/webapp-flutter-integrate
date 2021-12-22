@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TaxiScreen extends StatelessWidget {
   @override
@@ -37,6 +38,13 @@ class TaxiScreen extends StatelessWidget {
             handlerName: 'callBackAccessLocationPermission',
             callback: (args) {
               _checkLocationPermission();
+            });
+        controller.addJavaScriptHandler(
+            handlerName: 'makeCall',
+            callback: (args) {
+              print(args);
+              launch("tel://+849898203");
+              return {'bar': 'bar_value', 'baz': 'baz_value'};
             });
       },
       // handle permission request prompt android
