@@ -48,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 _navigateToTaxiFeature('dev', 'https://mylocalxenginx01.mylocal.vn');
                 return;
               }),
-              buttonNavigate('Production version', 'https://apim.mylocal.vn/apipayment/mylocal/1.0', Colors.blueAccent, () {
-                _navigateToTaxiFeature('prod', 'https://apim.mylocal.vn/apipayment/mylocal/1.0');
+              buttonNavigate('Debug version', 'http://localhost:9106', Colors.blueAccent, () {
+                _navigateToTaxiFeature('prod', 'http://localhost:9106');
                 return;
               }),
               InputUrlButton(context),
