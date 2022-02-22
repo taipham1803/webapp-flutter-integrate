@@ -2,15 +2,39 @@ import 'package:asim_test/screens/home/home.dart';
 import 'package:asim_test/utils/permission_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:location/location.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class TaxiScreen extends StatelessWidget {
+class TaxiPage extends StatefulWidget {
+  const TaxiPage({Key? key}) : super(key: key);
+
+  @override
+  State<TaxiPage> createState() => _TaxiPage();
+}
+
+class _TaxiPage extends State<TaxiPage> with SingleTickerProviderStateMixin {
+  InAppWebViewController? webViewController;
+  InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
+      crossPlatform: InAppWebViewOptions(
+        useShouldOverrideUrlLoading: true,
+        mediaPlaybackRequiresUserGesture: false,
+      ),
+      android: AndroidInAppWebViewOptions(
+        useHybridComposition: true,
+      ),
+      ios: IOSInAppWebViewOptions(
+        allowsInlineMediaPlayback: true,
+      ));
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     String webviewUri = 'https://asim.emddi.xyz';
-    final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
+    final args = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
     webviewUri = args.url;
 
     String access_token = "asim_access_token"; // myLocal user's jwt
@@ -26,8 +50,10 @@ class TaxiScreen extends StatelessWidget {
     var urlWebApp = Uri.parse("$webviewUri?token=$access_token&notifyId=$notify_id&tripId=$trip_id");
 
     return InAppWebView(
+      initialOptions: options,
       initialUrlRequest: URLRequest(url: urlWebApp, method: 'GET'),
       onWebViewCreated: (controller) {
+        webViewController = controller;
         controller.addJavaScriptHandler(
             handlerName: 'callBackPopScreenHandler',
             callback: (args) {

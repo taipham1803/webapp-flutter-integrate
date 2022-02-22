@@ -1,0 +1,15 @@
+{
+  "name": "driver",
+  "version": "1.0.0",
+  "description": "asim emddi flutter",
+  "main": "index.js",
+  "repository": "",
+  "author": "taipn",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "xcode": "open ios/Runner.xcworkspace",
+    "studio": "open -a /Applications/Android\\ Studio.app ./android/",
+    "apk": "open build/app/outputs/flutter-apk/"
+  }
+}

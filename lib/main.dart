@@ -1,6 +1,3 @@
-// import 'dart:convert';
-// import 'dart:typed_data';
-
 import 'package:asim_test/utils/routes/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +6,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

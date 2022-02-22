@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 _navigateToTaxiFeature('prod', 'http://localhost:9106');
                 return;
               }),
-              InputUrlButton(context),
+              inputUrlButton(context),
             ],
           ),
         ));
@@ -82,12 +82,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        onPressed: onPress,
+        onPressed: () => onPress(),
       ),
     );
   }
 
-  Widget InputUrlButton(BuildContext context) {
+  Widget inputUrlButton(BuildContext context) {
     return Container(
       margin: new EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
