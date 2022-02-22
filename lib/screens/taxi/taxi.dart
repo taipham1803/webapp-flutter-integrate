@@ -13,10 +13,10 @@ class TaxiPage extends StatefulWidget {
 }
 
 class _TaxiPage extends State<TaxiPage> with SingleTickerProviderStateMixin {
+  // to fix keyboard not show in Android 12
   InAppWebViewController? webViewController;
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
       crossPlatform: InAppWebViewOptions(
-        useShouldOverrideUrlLoading: true,
         mediaPlaybackRequiresUserGesture: false,
       ),
       android: AndroidInAppWebViewOptions(
@@ -50,21 +50,22 @@ class _TaxiPage extends State<TaxiPage> with SingleTickerProviderStateMixin {
     var urlWebApp = Uri.parse("$webviewUri?token=$access_token&notifyId=$notify_id&tripId=$trip_id");
 
     return InAppWebView(
+      // to fix keyboard not show in Android 12
       initialOptions: options,
       initialUrlRequest: URLRequest(url: urlWebApp, method: 'GET'),
       onWebViewCreated: (controller) {
-        webViewController = controller;
-        controller.addJavaScriptHandler(
+        webViewController = controller; // to fix keyboard not show in Android 12
+        webViewController?.addJavaScriptHandler(
             handlerName: 'callBackPopScreenHandler',
             callback: (args) {
               Navigator.of(context).maybePop();
             });
-        controller.addJavaScriptHandler(
+        webViewController?.addJavaScriptHandler(
             handlerName: 'callBackAccessLocationPermission',
             callback: (args) {
               _checkLocationPermission();
             });
-        controller.addJavaScriptHandler(
+        webViewController?.addJavaScriptHandler(
             handlerName: 'makeCall',
             callback: (args) {
               Map<String, dynamic> json = args[0];
